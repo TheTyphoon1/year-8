@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #828180;
+    }
+
+    h1 {
+      color: #FF7400;
+      font-size: 90px;
+    }
+
+    #demo {
+      font-size: 58px;
+      color: #FF7400;
+    }
+    
+    .toggleButton {
+      margin-top: 20px;
+      font-size: 24px;
+      background-color: #FF7400;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    #toggleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>End of Year 8</h1>
+  <p id="demo"></p>
+  <div id="toggleContainer">
+    <button class="toggleButton" id="toggleButton">Toggle Format</button>
+  </div>
+
+  <script>
+    var countDownDate = new Date("dec 23, 2023 15:30:01").getTime();
+    var displaySeconds = false;
+    var x;
+
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+
+      var months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+      var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      var displayText = "";
+      
+      if (displaySeconds) {
+        var totalSeconds = Math.floor(distance / 1000);
+        displayText = totalSeconds + " seconds";
+      } else {
+        displayText = months + " months " + days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds";
+      }
+
+      document.getElementById("demo").innerHTML = displayText;
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "Timer has ended.";
+      }
+    }
+
+    function toggleFormat() {
+      displaySeconds = !displaySeconds;
+      updateCountdown();
+    }
+
+    var toggleButton = document.getElementById("toggleButton");
+    toggleButton.addEventListener("click", toggleFormat);
+
+    x = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
